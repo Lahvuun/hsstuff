@@ -10,10 +10,9 @@ type Cell = Int
 type Move = (Int, Int)
 
 data Result
-  = Unfinished
-  | Victory
+  = Victory
   | Draw
-  deriving (Eq)
+  | Unfinished
 
 makeBoard :: Int -> Board
 makeBoard size = replicate size (replicate size ' ')
