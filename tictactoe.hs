@@ -1,9 +1,13 @@
 import Data.List
 import System.IO
 
-type Board = [[Char]]
+type Row = [Char]
 
-type Teams = [Char]
+type Board = [Row]
+
+type Team = Char
+
+type Teams = [Team]
 
 type Cell = Int
 
@@ -32,7 +36,7 @@ makeMove cell size = (cell' `mod` size, size - 1 - cell' `div` size)
   where
     cell' = cell - 1
 
-updateBoard :: Board -> Move -> Char -> Board
+updateBoard :: Board -> Move -> Team -> Board
 updateBoard board (x, y) team =
   [ [ if x == x' && y == y'
     then team
@@ -44,7 +48,7 @@ updateBoard board (x, y) team =
   where
     size = length board - 1
 
-checkRowWin :: [Char] -> Bool
+checkRowWin :: Row -> Bool
 checkRowWin (c:cs)
   | c == ' ' = False
   | length (nub (c : cs)) > 1 = False
