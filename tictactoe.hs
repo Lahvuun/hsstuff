@@ -92,17 +92,13 @@ play board (team:teams) = do
   move <- getMove board
   let newBoard = updateBoard board move team
   putBoardLn newBoard
-  let result = checkBoard newBoard
-  if result /= Unfinished
-    then if result == Victory
-           then do
-             putStr "Player: "
-             putChar team
-             putStrLn " won!"
-           else do
-             putStrLn "Draw"
-    else do
-      play newBoard teams
+  case checkBoard newBoard of
+    Victory -> do
+      putStr "Player: "
+      putChar team
+      putStrLn " won!"
+    Draw -> putStrLn "Draw"
+    Unfinished -> play newBoard teams
 
 main :: IO ()
 main = play (makeBoard 3) (cycle ['X', 'O'])
